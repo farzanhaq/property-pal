@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/webhook",
+      "lambdaFunction": "createOrder",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/webhook"
+    }
+  ],
+  "resourceName": "propertypalapirest",
+  "apiName": "propertypalapirest",
+  "functionArns": [
+    {
+      "lambdaFunction": "createOrder"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-propertypal-dev-180334-authRole",
+    "unAuthRoleName": "amplify-propertypal-dev-180334-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "createOrder",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

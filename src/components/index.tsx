@@ -1,0 +1,10 @@
+export { default as Login } from "./Authentication/Login/Login";
+export { default as SignUp } from "./Authentication/SignUp/SignUp";
+export { default as Booking } from "./Booking/Booking";
+export { default as Success } from "./Booking/Success/Success";
+export { default as Footerbar } from "./Footerbar/Footerbar";
+export { default as Home } from "./Home/Home";
+export { default as Navbar } from "./Navbar/Navbar";
+export { default as Result } from "./Results/Result/Result";
+export { default as Results } from "./Results/Results";
+export { default as Screening } from "./Screening/Screening";

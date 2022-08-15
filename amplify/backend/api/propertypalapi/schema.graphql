@@ -1,0 +1,49 @@
+type Purchase @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  user_email: String
+  Unit: Unit @connection
+  unit_id: ID
+}
+
+type Screening @model {
+  id: ID!
+  user_email: String
+  buyer_experience: String
+  buyer_purpose: String
+  num_bedrooms: [Float]
+  num_bathrooms: [Float]
+  budget: [Int]
+  unit_premium_interest: [String]
+}
+
+type Unit @model {
+  id: ID!
+  unit_number: Int
+  beds: Float
+  price: String
+  maintenance_fee: Float
+  baths: Float
+  starting_floor: Int
+  occupancy_date: Int
+  square_ft: Int
+  property_tax: Float
+  view: String
+  utility_fee: Float
+  rendering_image: String
+  maintenance_per_sq: Float
+  is_sold: Boolean
+  floor_plan: String
+  deposit_dates: [String]
+}
+
+type Mutation {
+  processPayment(input: ProcessPaymentInput!): String
+    @function(name: "processPayment-${env}")
+}
+
+input ProcessPaymentInput {
+  unit_id: ID!
+  total: String
+  success_url: String
+  cancel_url: String
+}

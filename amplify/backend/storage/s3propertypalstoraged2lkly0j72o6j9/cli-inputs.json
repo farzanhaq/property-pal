@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3propertypalstoraged2lkly0j72o6j9",
+  "bucketName": "propertypal-storage-d2lkly0j72o6j9",
+  "policyUUID": "cf1e3a30",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ",
+    "CREATE_AND_UPDATE"
+  ]
+}

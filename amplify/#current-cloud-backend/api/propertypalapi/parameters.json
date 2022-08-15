@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "propertypalapi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authPropertyPal",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

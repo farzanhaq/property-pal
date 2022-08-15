@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "keyDescription": "api key description",
+      "expirationTime": 30
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authPropertyPal"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "apiName": "propertypalapi",
+    "gqlSchemaPath": "/tmp/amplify-dc3c157f-5d3e-45a1-85c4-cfcadf918c62/amplify/backend/api/propertypalapi/schema.graphql"
+  }
+}

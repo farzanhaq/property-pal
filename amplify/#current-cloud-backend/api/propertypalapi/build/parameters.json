@@ -1,0 +1,14 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "propertypalapi",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authPropertyPal",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-propertypal-dev-180334-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/714c094911d1e21c3489adabdec9a98d015f289b"
+}

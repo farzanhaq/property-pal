@@ -1,0 +1,37 @@
+type Screening @model {
+  id: ID!
+  user_email: String
+  buyer_experience: String
+  buyer_purpose: String
+  num_bedrooms: [String] 
+  num_bathrooms: [String] 
+  budget: [Int]
+  unit_premium_interest: [String]
+}
+
+type Unit @model {
+  id: ID!
+  price: Float
+  baths: String
+  beds: String
+  occupancy: Boolean
+  maintenance_fee: Float
+  property_tax: Float
+  starting_floor: String
+  view: String
+  square_ft: Int
+  rendering_image: String
+  maintenance_per_sq: Float
+  utility_fee: Float
+  floor_plan: String
+  deposit_dates: [String]
+  is_sold: Boolean
+}
+
+type User @model {
+  id: ID!
+  username: String
+  email: String
+  phone_number: Int
+  gender: String
+}

@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-propertypal-dev-180334-authRole",
+      "UnauthRoleArn": "arn:aws:iam::279239114236:role/amplify-propertypal-dev-180334-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::279239114236:role/amplify-propertypal-dev-180334-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-propertypal-dev-180334-deployment",
+      "UnauthRoleName": "amplify-propertypal-dev-180334-unauthRole",
+      "StackName": "amplify-propertypal-dev-180334",
+      "StackId": "arn:aws:cloudformation:us-east-1:279239114236:stack/amplify-propertypal-dev-180334/18dadb60-2171-11ec-b877-0ad83b7cb797",
+      "AmplifyAppId": "d2lkly0j72o6j9"
+    },
+    "categories": {
+      "auth": {
+        "propertypal6afa8f81": {},
+        "PropertyPal": {}
+      },
+      "function": {
+        "processPayment": {
+          "deploymentBucketName": "amplify-propertypal-dev-180334-deployment",
+          "s3Key": "amplify-builds/processPayment-6a2b4d4851466d336451-build.zip",
+          "secretsPathAmplifyAppId": "d2lkly0j72o6j9"
+        },
+        "createOrder": {
+          "secretsPathAmplifyAppId": "d2lkly0j72o6j9",
+          "deploymentBucketName": "amplify-propertypal-dev-180334-deployment",
+          "s3Key": "amplify-builds/createOrder-646b5446306633632f53-build.zip"
+        }
+      }
+    }
+  }
+}

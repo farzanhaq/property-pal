@@ -1,0 +1,33 @@
+{
+  "bucketName": "propertypal-storage-d2lkly0j72o6j9",
+  "selectedGuestPermissions": [
+    "s3:GetObject",
+    "s3:ListBucket"
+  ],
+  "selectedAuthenticatedPermissions": [
+    "s3:GetObject",
+    "s3:ListBucket",
+    "s3:PutObject"
+  ],
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "s3PrivatePolicy": "Private_policy_cf1e3a30",
+  "s3ProtectedPolicy": "Protected_policy_cf1e3a30",
+  "s3PublicPolicy": "Public_policy_cf1e3a30",
+  "s3ReadPolicy": "read_policy_cf1e3a30",
+  "s3UploadsPolicy": "Uploads_policy_cf1e3a30",
+  "authPolicyName": "s3_amplify_cf1e3a30",
+  "unauthPolicyName": "s3_amplify_cf1e3a30",
+  "AuthenticatedAllowList": "ALLOW",
+  "GuestAllowList": "ALLOW",
+  "s3PermissionsAuthenticatedPrivate": "s3:GetObject,s3:PutObject",
+  "s3PermissionsAuthenticatedProtected": "s3:GetObject,s3:PutObject",
+  "s3PermissionsAuthenticatedPublic": "s3:GetObject,s3:PutObject",
+  "s3PermissionsAuthenticatedUploads": "s3:PutObject",
+  "s3PermissionsGuestPublic": "s3:GetObject",
+  "s3PermissionsGuestUploads": "DISALLOW"
+}

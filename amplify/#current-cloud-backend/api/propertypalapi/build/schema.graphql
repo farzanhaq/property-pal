@@ -1,0 +1,391 @@
+type Purchase @aws_iam @aws_api_key {
+  id: ID!
+  user_email: String
+  Unit: Unit
+  unit_id: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Screening {
+  id: ID!
+  user_email: String
+  buyer_experience: String
+  buyer_purpose: String
+  num_bedrooms: [Float]
+  num_bathrooms: [Float]
+  budget: [Int]
+  unit_premium_interest: [String]
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Unit {
+  id: ID!
+  unit_number: Int
+  beds: Float
+  price: String
+  maintenance_fee: Float
+  baths: Float
+  starting_floor: Int
+  occupancy_date: Int
+  square_ft: Int
+  property_tax: Float
+  view: String
+  utility_fee: Float
+  rendering_image: String
+  maintenance_per_sq: Float
+  is_sold: Boolean
+  floor_plan: String
+  deposit_dates: [String]
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Mutation {
+  processPayment(input: ProcessPaymentInput!): String
+  createScreening(input: CreateScreeningInput!, condition: ModelScreeningConditionInput): Screening
+  updateScreening(input: UpdateScreeningInput!, condition: ModelScreeningConditionInput): Screening
+  deleteScreening(input: DeleteScreeningInput!, condition: ModelScreeningConditionInput): Screening
+  createUnit(input: CreateUnitInput!, condition: ModelUnitConditionInput): Unit
+  updateUnit(input: UpdateUnitInput!, condition: ModelUnitConditionInput): Unit
+  deleteUnit(input: DeleteUnitInput!, condition: ModelUnitConditionInput): Unit
+  createPurchase(input: CreatePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_api_key @aws_iam
+  updatePurchase(input: UpdatePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_api_key @aws_iam
+  deletePurchase(input: DeletePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_api_key @aws_iam
+}
+
+input ProcessPaymentInput {
+  unit_id: ID!
+  total: String
+  success_url: String
+  cancel_url: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPurchaseConnection @aws_api_key @aws_iam {
+  items: [Purchase!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelPurchaseFilterInput {
+  id: ModelIDInput
+  user_email: ModelStringInput
+  unit_id: ModelIDInput
+  and: [ModelPurchaseFilterInput]
+  or: [ModelPurchaseFilterInput]
+  not: ModelPurchaseFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  syncScreenings(filter: ModelScreeningFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelScreeningConnection
+  getScreening(id: ID!): Screening
+  listScreenings(filter: ModelScreeningFilterInput, limit: Int, nextToken: String): ModelScreeningConnection
+  syncUnits(filter: ModelUnitFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUnitConnection
+  getUnit(id: ID!): Unit
+  listUnits(filter: ModelUnitFilterInput, limit: Int, nextToken: String): ModelUnitConnection
+  getPurchase(id: ID!): Purchase @aws_api_key @aws_iam
+  listPurchases(filter: ModelPurchaseFilterInput, limit: Int, nextToken: String): ModelPurchaseConnection @aws_api_key @aws_iam
+  syncPurchases(filter: ModelPurchaseFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPurchaseConnection @aws_api_key @aws_iam
+}
+
+input CreatePurchaseInput {
+  id: ID
+  user_email: String
+  unit_id: ID
+  _version: Int
+  purchaseUnitId: ID
+}
+
+input UpdatePurchaseInput {
+  id: ID!
+  user_email: String
+  unit_id: ID
+  _version: Int
+  purchaseUnitId: ID
+}
+
+input DeletePurchaseInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelPurchaseConditionInput {
+  user_email: ModelStringInput
+  unit_id: ModelIDInput
+  and: [ModelPurchaseConditionInput]
+  or: [ModelPurchaseConditionInput]
+  not: ModelPurchaseConditionInput
+}
+
+type Subscription {
+  onCreateScreening: Screening @aws_subscribe(mutations: ["createScreening"])
+  onUpdateScreening: Screening @aws_subscribe(mutations: ["updateScreening"])
+  onDeleteScreening: Screening @aws_subscribe(mutations: ["deleteScreening"])
+  onCreateUnit: Unit @aws_subscribe(mutations: ["createUnit"])
+  onUpdateUnit: Unit @aws_subscribe(mutations: ["updateUnit"])
+  onDeleteUnit: Unit @aws_subscribe(mutations: ["deleteUnit"])
+  onCreatePurchase: Purchase @aws_subscribe(mutations: ["createPurchase"]) @aws_api_key @aws_iam
+  onUpdatePurchase: Purchase @aws_subscribe(mutations: ["updatePurchase"]) @aws_api_key @aws_iam
+  onDeletePurchase: Purchase @aws_subscribe(mutations: ["deletePurchase"]) @aws_api_key @aws_iam
+}
+
+type ModelScreeningConnection {
+  items: [Screening!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelScreeningFilterInput {
+  id: ModelIDInput
+  user_email: ModelStringInput
+  buyer_experience: ModelStringInput
+  buyer_purpose: ModelStringInput
+  num_bedrooms: ModelFloatInput
+  num_bathrooms: ModelFloatInput
+  budget: ModelIntInput
+  unit_premium_interest: ModelStringInput
+  and: [ModelScreeningFilterInput]
+  or: [ModelScreeningFilterInput]
+  not: ModelScreeningFilterInput
+}
+
+input CreateScreeningInput {
+  id: ID
+  user_email: String
+  buyer_experience: String
+  buyer_purpose: String
+  num_bedrooms: [Float]
+  num_bathrooms: [Float]
+  budget: [Int]
+  unit_premium_interest: [String]
+  _version: Int
+}
+
+input UpdateScreeningInput {
+  id: ID!
+  user_email: String
+  buyer_experience: String
+  buyer_purpose: String
+  num_bedrooms: [Float]
+  num_bathrooms: [Float]
+  budget: [Int]
+  unit_premium_interest: [String]
+  _version: Int
+}
+
+input DeleteScreeningInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelScreeningConditionInput {
+  user_email: ModelStringInput
+  buyer_experience: ModelStringInput
+  buyer_purpose: ModelStringInput
+  num_bedrooms: ModelFloatInput
+  num_bathrooms: ModelFloatInput
+  budget: ModelIntInput
+  unit_premium_interest: ModelStringInput
+  and: [ModelScreeningConditionInput]
+  or: [ModelScreeningConditionInput]
+  not: ModelScreeningConditionInput
+}
+
+type ModelUnitConnection {
+  items: [Unit!]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUnitFilterInput {
+  id: ModelIDInput
+  unit_number: ModelIntInput
+  beds: ModelFloatInput
+  price: ModelStringInput
+  maintenance_fee: ModelFloatInput
+  baths: ModelFloatInput
+  starting_floor: ModelIntInput
+  occupancy_date: ModelIntInput
+  square_ft: ModelIntInput
+  property_tax: ModelFloatInput
+  view: ModelStringInput
+  utility_fee: ModelFloatInput
+  rendering_image: ModelStringInput
+  maintenance_per_sq: ModelFloatInput
+  is_sold: ModelBooleanInput
+  floor_plan: ModelStringInput
+  deposit_dates: ModelStringInput
+  and: [ModelUnitFilterInput]
+  or: [ModelUnitFilterInput]
+  not: ModelUnitFilterInput
+}
+
+input CreateUnitInput {
+  id: ID
+  unit_number: Int
+  beds: Float
+  price: String
+  maintenance_fee: Float
+  baths: Float
+  starting_floor: Int
+  occupancy_date: Int
+  square_ft: Int
+  property_tax: Float
+  view: String
+  utility_fee: Float
+  rendering_image: String
+  maintenance_per_sq: Float
+  is_sold: Boolean
+  floor_plan: String
+  deposit_dates: [String]
+  _version: Int
+}
+
+input UpdateUnitInput {
+  id: ID!
+  unit_number: Int
+  beds: Float
+  price: String
+  maintenance_fee: Float
+  baths: Float
+  starting_floor: Int
+  occupancy_date: Int
+  square_ft: Int
+  property_tax: Float
+  view: String
+  utility_fee: Float
+  rendering_image: String
+  maintenance_per_sq: Float
+  is_sold: Boolean
+  floor_plan: String
+  deposit_dates: [String]
+  _version: Int
+}
+
+input DeleteUnitInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelUnitConditionInput {
+  unit_number: ModelIntInput
+  beds: ModelFloatInput
+  price: ModelStringInput
+  maintenance_fee: ModelFloatInput
+  baths: ModelFloatInput
+  starting_floor: ModelIntInput
+  occupancy_date: ModelIntInput
+  square_ft: ModelIntInput
+  property_tax: ModelFloatInput
+  view: ModelStringInput
+  utility_fee: ModelFloatInput
+  rendering_image: ModelStringInput
+  maintenance_per_sq: ModelFloatInput
+  is_sold: ModelBooleanInput
+  floor_plan: ModelStringInput
+  deposit_dates: ModelStringInput
+  and: [ModelUnitConditionInput]
+  or: [ModelUnitConditionInput]
+  not: ModelUnitConditionInput
+}
